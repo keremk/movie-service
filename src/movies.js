@@ -1,19 +1,45 @@
 const R = require('ramda');
+const utils = require('req-res-utils'); 
 
 // Load sample data
 const indexedMovies = require('../data/indexed_movies.json');
 const movies = require('../data/movie_details3.json');
 const genres = require('../data/genres.json');
 
-// Helper functions
+const PosterSize = {
+  SMALL: 'w154',
+  MEDIUM: 'w342',
+  LARGE: 'w780'
+};
+
+const ProfileImageSize = {
+  SMALL: 'w185',
+  LARGE: 'w632'
+}
+
 const movieById = movieId => indexedMovies[movieId];
 const checkIfValidMovieId = movieId => {
   const movie = movieById(movieId);
   return typeof movie != 'undefined';
 };
 
-const resolvePosterPath = (path, size) => (mode == "offline") ? `http://localhost:3030/images/w342${path}` :
-  `https://image.tmdb.org/t/p/${size}${path}`
+const filterValidIds = movieIds => R.filter(checkIfValidMovieId)(movieIds);
+
+const getReleaseYear = movie => movie.releaseDate.slice(0, 4);
+
+const getPoster = (movie, size) => {
+  return {
+    fullPath: `https://image.tmdb.org/t/p/${size}${movie.posterPath}`,
+    size: size
+  };
+};
+
+const getProfileImage = (actor, size) => {
+  return {
+    fullPath: `https://image.tmdb.org/t/p/${size}${actor.profilePath}`,
+    size: size
+  };
+};
 
 const ratingFilter = rating => {
   return movie => movie.rating >= rating;
@@ -21,7 +47,7 @@ const ratingFilter = rating => {
 
 const genreFilter = genre => {
   return movie => {
-    let genreObj = R.find(R.propEq('name', genre))(genres.genres);
+    let genreObj = R.find(R.propEq('name', genre))(genres);
     if (typeof genreObj == 'undefined') {
       throw Error(`Genre ${genre} is unknown`);
     }
@@ -29,7 +55,7 @@ const genreFilter = genre => {
   };
 };
 
-const createMoviesResponse = (args) => {
+const createMoviesResponse = (args, ignorePathResolution=false, inputMovies=movies) => {
   const filters = [
     {
       "name": "rating", 
@@ -40,26 +66,48 @@ const createMoviesResponse = (args) => {
       "action": genreFilter
     }
   ];
+
+  const posterSize = PosterSize[args.posterSize || 'MEDIUM'];
+  const profileImageSize = ProfileImageSize[args.profileImageSize || "SMALL"];
+
   const filterMovies = R.curry(utils.filterItems)(args, filters);
   const pageMovies = R.curry(utils.paging.getPagedItems)(args);
-  const substituteFullPosterPath = R.map(
+  const resolvePaths = R.map(
     movie => {
-      movie.posterPath = resolvePosterPath(movie.posterPath, "w342")
-      return movie
+      movie.poster = getPoster(movie, posterSize)
+      movie.cast = R.map(
+        actor => {
+          actor.profileImage = getProfileImage(actor, profileImageSize);
+          return actor;
+        }
+      )(movie.cast);
+      return movie;
     }
   )
-  return R.pipe(
-    filterMovies,
-    substituteFullPosterPath,
-    pageMovies,
-  )(movies);
+  if (ignorePathResolution) {
+    return R.pipe(
+      filterMovies,
+      pageMovies
+    )(inputMovies);
+  } else {
+    return R.pipe(
+      filterMovies,
+      resolvePaths,
+      pageMovies,
+    )(inputMovies);
+  }
 }
 
-const getGenres = R.map(genre => genre.name)(genres.genres);
+const getGenres = () => genres;
 
 module.exports = {
   createMoviesResponse: createMoviesResponse,
   movieById: movieById,
-  checkIfValidMovieId: checkIfValidMovieId,
-  getGenres: getGenres
+  filterValidIds: filterValidIds,
+  getGenres: getGenres,
+  getReleaseYear: getReleaseYear,
+  getPoster: getPoster,
+  getProfileImage: getProfileImage,
+  PosterSize: PosterSize,
+  ProfileImageSize: ProfileImageSize
 }

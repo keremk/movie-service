@@ -12,8 +12,6 @@ const addMovieIds = (favorites, movieIds) => R.union(favorites, movieIds);
 
 const removeMovieIds = (favorites, movieIds) => R.without(movieIds, favorites);
 
-const filterValidIds = movieIds => R.filter(movieHelpers.checkIfValidMovieId)(movieIds);
-
 const saveFavorites = favorites => {
   storedFavorites = favorites
 }
@@ -21,7 +19,7 @@ const saveFavorites = favorites => {
 const addToFavorites = (movieIds, favorites) => {
   const addMovieIdsToFavorites = R.curry(addMovieIds)(favorites);
   return R.pipe(
-    filterValidIds,
+    movieHelpers.filterValidIds,
     addMovieIdsToFavorites
   )(movieIds);
 };
@@ -29,7 +27,7 @@ const addToFavorites = (movieIds, favorites) => {
 const removeFromFavorites = (movieIds, favorites) => {
   const removeMovieIdsFromFavorites = R.curry(removeMovieIds)(favorites);
   return R.pipe(
-    filterValidIds, 
+    movieHelpers.filterValidIds, 
     removeMovieIdsFromFavorites
   )(movieIds);
 };
