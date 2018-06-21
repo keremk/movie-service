@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "config": {
     "mode": "online"
@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "fs-extra": "^5.0.0",
+    "jest": "^23.1.0",
     "mustache": "^2.3.0",
     "nodemon": "^1.14.6",
     "zip-folder": "^1.0.0"

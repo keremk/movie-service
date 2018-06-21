@@ -217,27 +217,19 @@ PATCH /favorites
 with a JSON payload of:
 
 ``` javascript
-[
-	{
-		"op": "remove",
-		"value": "1893"
-	},
-	{
-		"op": "add",
-		"value": "680"
-	},
-	{
-		"op": "add",
-		"value": "12"
-	}
-]
+{
+	"addMovieIds": "1893, 12",
+	"removeMovieIds": "680"
+}
 ```
 
 where: 
 
-**op** : `add` for adding favorites and `remove` for removing favorites 
+**addMovieIds** : comma delimited list of movie ids to add to favorites. 
 
-**value** : The movieId of the movie you want to add/remove from favorites
+**removeMovieIds** : comma delimited list of movie ids to remove from favorites. 
+
+If the movieId is not a valid movie id, or it already exists, or it is already removed, then it is simply ignored.
 
 Keep in mind that if you start and stop the service, the favorites are lost, they are not stored on disk.
 

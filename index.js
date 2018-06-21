@@ -4,6 +4,7 @@ const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
 const R = require('ramda');
 const utils = require('req-res-utils'); 
+const favorites = require('./src/favorites');
 
 const port = process.env.PORT || 3030
 const service_name = process.env.SERVICE_NAME || 'movie-search'
@@ -65,54 +66,6 @@ const createMoviesResponse = (args) => {
     pageMovies,
   )(movies);
 }
-
-// Favorites Support
-let favorites = [];
-const checkIfFavorite = movieId => R.contains(movieId)(favorites);
-const getFavoriteMovies = () => R.map(movieId => movieById(movieId))(favorites);
-
-const addToFavorites = movieId => {
-  if (!checkIfValidMovieId(movieId)) {
-    throw new Error(`MovieId ${movieId} is not valid`);
-  }
-  if (!checkIfFavorite(movieId)) {
-    favorites.push(movieId);
-  }
-};
-
-const removeFromFavorites = movieId => {
-  const index = favorites.indexOf(movieId);
-  if (index > -1) {
-    favorites.splice(index, 1);
-  } else {
-    throw new Error('Movie is not in the favorites');
-  }
-};
-
-const executeOperations = opList => {
-  if (!Array.isArray(opList)) {
-    console.log(opList);
-    throw new Error('Invalid operation: malformed operation list, expecting an array');
-  }
-  opList.forEach(operation => {
-      if (!operation.hasOwnProperty('op')) {
-        throw new Error('Invalid operation, op is not defined');
-      }
-      if (!operation.hasOwnProperty('value')) {
-        throw new Error('Invalid operation, value is not defined');
-      }
-      switch(operation.op) {
-        case 'add':
-          addToFavorites(parseInt(operation.value));
-          break;
-        case 'remove':
-          removeFromFavorites(parseInt(operation.value));
-          break;
-        default:
-          throw new Error(`Invalid operation, op ${operation.op} is unknown`);
-      }
-    });
-};
 
 // GraphQL schema definition
 const typeDefs = `
@@ -192,17 +145,19 @@ const resolvers = {
       console.log(args);
       return createMoviesResponse(args);
     },
-    favorites: () => R.map(movieId => movieById(movieId))(favorites),
+    favorites: () => favorites.getFavoriteMovies(),
     genres: () => R.map(v => v.name)(genres.genres)
   },
   Mutation: {
     addFavorite: (_, { movieId }) => {
-      addToFavorites(movieId);
-      return getFavoriteMovies();
+      const favoritesResponse = favorites.createFavoritesResponse(
+        { addMovieIds: `${movieId}` }, true);
+      return favoritesResponse;
     },
     removeFavorite: (_, { movieId }) => {
-      removeFromFavorites(movieId);
-      return getFavoriteMovies();
+      const favoritesResponse = favorites.createFavoritesResponse(
+        { removeMovieIds: `${movieId}` }, true);
+      return favoritesResponse;
     }
   },
   Movie: {
@@ -277,9 +232,7 @@ app.get('/movies', (req, res) => {
 
 app.get('/favorites', (req, res) => {
   try {
-    const favoritesResponse = {
-      data: getFavoriteMovies()
-    }
+    const favoritesResponse = favorites.createFavoritesResponse(req.body);
     res.send(favoritesResponse);
   } catch (error) {
     console.log(error);
@@ -289,10 +242,7 @@ app.get('/favorites', (req, res) => {
 
 app.patch('/favorites', (req, res) => {
   try {
-    executeOperations(req.body)
-    const favoritesResponse = {
-      data: getFavoriteMovies()
-    }
+    const favoritesResponse = favorites.createFavoritesResponse(req.body);
     res.send(favoritesResponse);   
   } catch (error) {
     console.log(error);
