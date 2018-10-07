@@ -18,7 +18,7 @@ before_deploy:
   - docker pull "$IMAGE_NAME" || true
   - docker build --pull --cache-from "$IMAGE_NAME" --tag "$IMAGE_NAME" .
   - docker images
-  - version="$(git tag | awk 'NR==2{print $1}')"
+  - version="$(git tag | awk 'NR==1{print $1}')"
   - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD"
   - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
   - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:${version}"
