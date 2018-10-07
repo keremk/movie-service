@@ -61,15 +61,10 @@ const performFavoritesOps = (favoriteOps, favorites) => {
   )(favorites);
 };
 
-const createFavoritesResponse = (favoriteOps, omitDataTag=false) => {
+const createFavoritesResponse = (args, favoriteOps) => {
   storedFavorites = performFavoritesOps(favoriteOps, storedFavorites);
-  if (omitDataTag) {
-    return getFavoriteMovies()
-  } else {
-    return {
-      data: getFavoriteMovies()
-    }  
-  }
+
+  return movieHelpers.createMoviesResponse(args, false, getFavoriteMovies())
 };
 
 module.exports = {

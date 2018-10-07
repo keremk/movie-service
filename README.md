@@ -89,11 +89,20 @@ The response will be:
 To retrieve the list of favorites, you can use
 
 ```
-GET /favorites
+GET /favorites?offset=0&limit=2
 ```
+
+**offset** (Optional): the offset value to start for paging, default is 0 
+
+**limit** (Optional): the number of items per page, default is 100
 
 ``` javascript
 {
+    "metadata": {
+        "offset": 0,
+        "limit": 2,
+        "total": 2
+    },
     "data": [
         {
             "id": 1893,
@@ -129,10 +138,18 @@ GET /favorites
                     "gender": 2,
                     "name": "Liam Neeson",
                     "character": "Qui-Gon Jinn",
-                    "profilePath": "/9mdAohLsDu36WaXV2N3SQ388bvz.jpg"
+                    "profilePath": "/9mdAohLsDu36WaXV2N3SQ388bvz.jpg",
+                    "profileImage": {
+                        "fullPath": "https://image.tmdb.org/t/p/w185/9mdAohLsDu36WaXV2N3SQ388bvz.jpg",
+                        "size": "w185"
+                    }
                 }, ...
-            ]
-        }, ...
+            ],
+            "poster": {
+                "fullPath": "https://image.tmdb.org/t/p/w342/n8V09dDc02KsSN6Q4hC2BX6hN8X.jpg",
+                "size": "w342"
+            }
+        },...
     ]
 }
 ```
@@ -168,6 +185,11 @@ The response will be: (returns the full list of favorites after the add/remove o
 
 ``` javascript
 {
+    "metadata": {
+        "offset": 0,
+        "limit": 2,
+        "total": 2
+    },
     "data": [
         {
             "id": 1893,
@@ -203,10 +225,18 @@ The response will be: (returns the full list of favorites after the add/remove o
                     "gender": 2,
                     "name": "Liam Neeson",
                     "character": "Qui-Gon Jinn",
-                    "profilePath": "/9mdAohLsDu36WaXV2N3SQ388bvz.jpg"
+                    "profilePath": "/9mdAohLsDu36WaXV2N3SQ388bvz.jpg",
+                    "profileImage": {
+                        "fullPath": "https://image.tmdb.org/t/p/w185/9mdAohLsDu36WaXV2N3SQ388bvz.jpg",
+                        "size": "w185"
+                    }
                 }, ...
-            ]
-        }, ...
+            ],
+            "poster": {
+                "fullPath": "https://image.tmdb.org/t/p/w342/n8V09dDc02KsSN6Q4hC2BX6hN8X.jpg",
+                "size": "w342"
+            }
+        },...
     ]
 }
 ```

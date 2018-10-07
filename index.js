@@ -56,7 +56,7 @@ app.get('/movies', (req, res) => {
 
 app.get('/favorites', (req, res) => {
   try {
-    const favoritesResponse = favorites.createFavoritesResponse(req.body);
+    const favoritesResponse = favorites.createFavoritesResponse(req.query, req.body);
     res.send(favoritesResponse);
   } catch (error) {
     console.log(error);
@@ -66,7 +66,7 @@ app.get('/favorites', (req, res) => {
 
 app.patch('/favorites', (req, res) => {
   try {
-    const favoritesResponse = favorites.createFavoritesResponse(req.body);
+    const favoritesResponse = favorites.createFavoritesResponse(req.query, req.body);
     res.send(favoritesResponse);   
   } catch (error) {
     console.log(error);
