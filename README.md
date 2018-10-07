@@ -30,88 +30,57 @@ The response will be:
 {
     "metadata": {
         "offset": 1,
-        "limit": 20,
-        "total": 53
+        "limit": 5,
+        "total": 16
     },
     "data": [
         {
-            "id": 398818,
-            "title": "Call Me by Your Name",
-            "tagline": "",
-            "overview": "Elio Perlman is spending the summer with his family at their vacation home in Lombardy, Italy. When his father hires a handsome doctoral student, the curious 17-year-old finds himself developing a growing attraction to the young man.",
-            "popularity": 24.219103,
+            "id": 13,
+            "title": "Forrest Gump",
+            "tagline": "OVERRATED!",
+            "overview": "A man with a low IQ has accomplished great things in his life and been present during significant historic events - in each case, far exceeding what anyone imagined he could do. Yet, despite all the things he has attained, his one true love eludes him. 'Forrest Gump' is the story of a man who rose above his challenges, and who proved that determination, courage, and love are more important than ability.",
+            "popularity": 23.694098,
             "rating": 8.3,
-            "ratingCount": 2245,
-            "runtime": 132,
-            "releaseDate": "2017-09-01",
-            "revenue": 40353565,
-            "budget": 3500000,
-            "posterPath": "https://image.tmdb.org/t/p/w342https://image.tmdb.org/t/p/w342https://image.tmdb.org/t/p/w342/nPTjj6ZfBXXBwOhd7iUy6tyuKWt.jpg",
+            "ratingCount": 10742,
+            "runtime": 142,
+            "releaseDate": "1994-07-06",
+            "revenue": 677945399,
+            "budget": 55000000,
+            "posterPath": "/yE5d3BUhE8hCnkMUJOo1QDoOGNz.jpg",
             "originalLanguage": "en",
             "genres": [
                 {
-                    "id": 10749,
-                    "name": "Romance"
+                    "id": 35,
+                    "name": "Comedy"
                 },
                 {
                     "id": 18,
                     "name": "Drama"
+                },
+                {
+                    "id": 10749,
+                    "name": "Romance"
                 }
             ],
             "cast": [
                 {
-                    "id": 1190668,
+                    "id": 31,
                     "gender": 2,
-                    "name": "Timothée Chalamet",
-                    "character": "Elio Perlman",
-                    "profilePath": "/gz5kyVsUzOratQmGHdDg3AnxP9h.jpg"
-                },
-                {
-                    "id": 53807,
-                    "gender": 2,
-                    "name": "Armie Hammer",
-                    "character": "Oliver",
-                    "profilePath": "/2zq984Jrw53AxDshTQPKpTPGLe8.jpg"
-                },
-                {
-                    "id": 72873,
-                    "gender": 2,
-                    "name": "Michael Stuhlbarg",
-                    "character": "Samuel Perlman",
-                    "profilePath": "/seBk12MUK51aUoYX4OW1itfOpJ6.jpg"
-                },
-                {
-                    "id": 20577,
-                    "gender": 1,
-                    "name": "Amira Casar",
-                    "character": "Annella Perlman",
-                    "profilePath": "/cSKff4J5gT6vMW9EsAwFWwOIHb7.jpg"
-                },
-                {
-                    "id": 935096,
-                    "gender": 1,
-                    "name": "Esther Garrel",
-                    "character": "Marzia",
-                    "profilePath": "/km79Neoe5tLwgbiBzq72pR7pdxY.jpg"
-                },
-                {
-                    "id": 1592949,
-                    "gender": 1,
-                    "name": "Victoire Du Bois",
-                    "character": "Chiara",
-                    "profilePath": "/c5jlxSh0iHyBMVeqW5FS3qjIobP.jpg"
-                },
-                {
-                    "id": 1789600,
-                    "gender": 0,
-                    "name": "Vanda Capriolo",
-                    "character": "Mafalda",
-                    "profilePath": "/oZz3RnL0veM2oxohNzLXiO9BUbr.jpg"
-                }
-            ]
-        },...
-		]
-}
+                    "name": "Tom Hanks",
+                    "character": "Forrest Gump",
+                    "profilePath": "/a14CNByTYALAPSGlwlmfHILpEIW.jpg",
+                    "profileImage": {
+                        "fullPath": "https://image.tmdb.org/t/p/w185/a14CNByTYALAPSGlwlmfHILpEIW.jpg",
+                        "size": "w185"
+                    }
+                }, ...
+            ],
+            "poster": {
+                "fullPath": "https://image.tmdb.org/t/p/w342/yE5d3BUhE8hCnkMUJOo1QDoOGNz.jpg",
+                "size": "w342"
+            }
+        }, ...
+    ]
 ```
 
 
@@ -127,82 +96,44 @@ GET /favorites
 {
     "data": [
         {
-            "id": 680,
-            "title": "Pulp Fiction",
-            "tagline": "Just because you are a character doesn't mean you have character.",
-            "overview": "A burger-loving hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up boxer converge in this sprawling, comedic crime caper. Their adventures unfurl in three stories that ingeniously trip back and forth in time.",
-            "popularity": 22.685188,
-            "rating": 8.3,
-            "ratingCount": 11326,
-            "runtime": 154,
-            "releaseDate": "1994-09-10",
-            "revenue": 213928762,
-            "budget": 8000000,
-            "posterPath": "/dM2w364MScsjFf8pfMbaWUcWrR.jpg",
+            "id": 1893,
+            "title": "Star Wars: Episode I - The Phantom Menace",
+            "tagline": "Every generation has a legend. Every journey has a first step. Every saga has a beginning.",
+            "overview": "Anakin Skywalker, a young slave strong with the Force, is discovered on Tatooine. Meanwhile, the evil Sith have returned, enacting their plot for revenge against the Jedi.",
+            "popularity": 22.71543,
+            "rating": 6.4,
+            "ratingCount": 6085,
+            "runtime": 136,
+            "releaseDate": "1999-05-19",
+            "revenue": 924317558,
+            "budget": 115000000,
+            "posterPath": "/n8V09dDc02KsSN6Q4hC2BX6hN8X.jpg",
             "originalLanguage": "en",
             "genres": [
                 {
-                    "id": 53,
-                    "name": "Thriller"
+                    "id": 12,
+                    "name": "Adventure"
                 },
                 {
-                    "id": 80,
-                    "name": "Crime"
+                    "id": 28,
+                    "name": "Action"
+                },
+                {
+                    "id": 878,
+                    "name": "Science Fiction"
                 }
             ],
             "cast": [
                 {
-                    "id": 8891,
+                    "id": 3896,
                     "gender": 2,
-                    "name": "John Travolta",
-                    "character": "Vincent Vega",
-                    "profilePath": "/JSt3skdZpGPJYJixCZqH599WdI.jpg"
-                },
-                {
-                    "id": 2231,
-                    "gender": 2,
-                    "name": "Samuel L. Jackson",
-                    "character": "Jules Winfield",
-                    "profilePath": "/AvCReLikjzYEf9XjTQxbv3JWgKT.jpg"
-                },
-                {
-                    "id": 139,
-                    "gender": 1,
-                    "name": "Uma Thurman",
-                    "character": "Mia Wallace",
-                    "profilePath": "/43DjE9bGtR8z7ejCRvf2tPXPpm1.jpg"
-                },
-                {
-                    "id": 62,
-                    "gender": 2,
-                    "name": "Bruce Willis",
-                    "character": "Butch Coolidge",
-                    "profilePath": "/kI1OluWhLJk3pnR19VjOfABpnTY.jpg"
-                },
-                {
-                    "id": 10182,
-                    "gender": 2,
-                    "name": "Ving Rhames",
-                    "character": "Marsellus Wallace",
-                    "profilePath": "/8nS83GOu0iqxjL2Oj2DgwkAceFQ.jpg"
-                },
-                {
-                    "id": 1037,
-                    "gender": 2,
-                    "name": "Harvey Keitel",
-                    "character": "Wolf",
-                    "profilePath": "/4hci8q0lzZ4vCyItQg2VaA0sc2T.jpg"
-                },
-                {
-                    "id": 7036,
-                    "gender": 2,
-                    "name": "Eric Stoltz",
-                    "character": "Lance",
-                    "profilePath": "/fXaULtqnMDKsqT1to8vnLjSXe0w.jpg"
-                }
+                    "name": "Liam Neeson",
+                    "character": "Qui-Gon Jinn",
+                    "profilePath": "/9mdAohLsDu36WaXV2N3SQ388bvz.jpg"
+                }, ...
             ]
-        },...
-		]
+        }, ...
+    ]
 }
 ```
 
@@ -239,84 +170,45 @@ The response will be: (returns the full list of favorites after the add/remove o
 {
     "data": [
         {
-            "id": 680,
-            "title": "Pulp Fiction",
-            "tagline": "Just because you are a character doesn't mean you have character.",
-            "overview": "A burger-loving hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up boxer converge in this sprawling, comedic crime caper. Their adventures unfurl in three stories that ingeniously trip back and forth in time.",
-            "popularity": 22.685188,
-            "rating": 8.3,
-            "ratingCount": 11326,
-            "runtime": 154,
-            "releaseDate": "1994-09-10",
-            "revenue": 213928762,
-            "budget": 8000000,
-            "posterPath": "/dM2w364MScsjFf8pfMbaWUcWrR.jpg",
+            "id": 1893,
+            "title": "Star Wars: Episode I - The Phantom Menace",
+            "tagline": "Every generation has a legend. Every journey has a first step. Every saga has a beginning.",
+            "overview": "Anakin Skywalker, a young slave strong with the Force, is discovered on Tatooine. Meanwhile, the evil Sith have returned, enacting their plot for revenge against the Jedi.",
+            "popularity": 22.71543,
+            "rating": 6.4,
+            "ratingCount": 6085,
+            "runtime": 136,
+            "releaseDate": "1999-05-19",
+            "revenue": 924317558,
+            "budget": 115000000,
+            "posterPath": "/n8V09dDc02KsSN6Q4hC2BX6hN8X.jpg",
             "originalLanguage": "en",
             "genres": [
                 {
-                    "id": 53,
-                    "name": "Thriller"
+                    "id": 12,
+                    "name": "Adventure"
                 },
                 {
-                    "id": 80,
-                    "name": "Crime"
+                    "id": 28,
+                    "name": "Action"
+                },
+                {
+                    "id": 878,
+                    "name": "Science Fiction"
                 }
             ],
             "cast": [
                 {
-                    "id": 8891,
+                    "id": 3896,
                     "gender": 2,
-                    "name": "John Travolta",
-                    "character": "Vincent Vega",
-                    "profilePath": "/JSt3skdZpGPJYJixCZqH599WdI.jpg"
-                },
-                {
-                    "id": 2231,
-                    "gender": 2,
-                    "name": "Samuel L. Jackson",
-                    "character": "Jules Winfield",
-                    "profilePath": "/AvCReLikjzYEf9XjTQxbv3JWgKT.jpg"
-                },
-                {
-                    "id": 139,
-                    "gender": 1,
-                    "name": "Uma Thurman",
-                    "character": "Mia Wallace",
-                    "profilePath": "/43DjE9bGtR8z7ejCRvf2tPXPpm1.jpg"
-                },
-                {
-                    "id": 62,
-                    "gender": 2,
-                    "name": "Bruce Willis",
-                    "character": "Butch Coolidge",
-                    "profilePath": "/kI1OluWhLJk3pnR19VjOfABpnTY.jpg"
-                },
-                {
-                    "id": 10182,
-                    "gender": 2,
-                    "name": "Ving Rhames",
-                    "character": "Marsellus Wallace",
-                    "profilePath": "/8nS83GOu0iqxjL2Oj2DgwkAceFQ.jpg"
-                },
-                {
-                    "id": 1037,
-                    "gender": 2,
-                    "name": "Harvey Keitel",
-                    "character": "Wolf",
-                    "profilePath": "/4hci8q0lzZ4vCyItQg2VaA0sc2T.jpg"
-                },
-                {
-                    "id": 7036,
-                    "gender": 2,
-                    "name": "Eric Stoltz",
-                    "character": "Lance",
-                    "profilePath": "/fXaULtqnMDKsqT1to8vnLjSXe0w.jpg"
-                }
+                    "name": "Liam Neeson",
+                    "character": "Qui-Gon Jinn",
+                    "profilePath": "/9mdAohLsDu36WaXV2N3SQ388bvz.jpg"
+                }, ...
             ]
-				},...
-		]
+        }, ...
+    ]
 }
-
 ```
 
 ## GraphQL Endpoint
@@ -324,6 +216,6 @@ The response will be: (returns the full list of favorites after the add/remove o
 The GraphQL endpoint is already well documented through the use of Graphiql, to access that go to below in your favorite browser:
 
 ```
-http://localhost:3030/graphiql
+http://localhost:4000/graphql
 ```
 
