@@ -1,6 +1,30 @@
+sudo: required
+services:
+- docker
+env:
+  global:
+  - IMAGE_NAME=codingventures/movie-service
+  - REGISTRY_USER=kkarataldocker
+  - secure: HvVCqwX1u3xpiFvFothbkoBwBo5YvZQPDS2i5Y6obRs9hdaVoZc8k2121toZl32E+BdsgAQhNyNllCkjD4Nv15VguJFAF/4PP/5/k2kWA1Q4WTbNLsVBtcJ+fxM44JmRZCO7WSOixJEG5LvdpCVGuU48g694PHpsx8BVA6LM+sWw3ZxyMhdDZNZbL+Z9wg4Bo64WUT7+CaGENw/aJ05BHUIhkAPd7H2NStq/si5rVNLwKwX4djNbFE0TjAOSC9yaIxkVHz7lwOxnVBe2FMc3+bxfXp0f9IA4sZ0Bu7jyzHUsAi9VUK0CSXj2Aalg2u/GzsZefhGSOX4Vd1xcixZJ0LDM54ZRp7FW9Xf9dO6jUWtsP/5UzPixBOpZ1Y3BCUBskiDytaxTesJxk5tINTFS7QYEbnfufPx6pbIHHAF4PmL+z+UaI9ZDzSn3Vet5WD5ngD21VsGOSHEU0aQYQbh9rdMqL/3bebuncgyzmUm/t0Gs/uW+xzrbK3xBPFGwsl69HIq0Ps03P53VP3ITSlYNPF7gdQl/GXfcmzSv4phQLhGJ4Df6GJBGXXB+ZAs9Q3hgM/9Uw8g4iQn5SDdB1FmA1paxcsJxo7f6FOxE0sWjig4L1zek24NQ/BDd8ad+gy6x8y6XHjsPe0taoOWwuteT7dLyYf0bmgIzS3VcGpUqO9k=
+
 language: node_js
 node_js:
 - stable
 cache:
   directories:
-    - "node_modules"
+  - node_modules
+
+before_deploy:
+  - docker pull "$IMAGE_NAME" || true
+  - docker build --pull --cache-from "$IMAGE_NAME" --tag "$IMAGE_NAME" .
+  - docker images
+  - version="$(git tag | awk 'NR==2{print $1}')"
+  - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD"
+  - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
+  - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:${version}"
+deploy:
+  provider: script
+  script: docker push "${IMAGE_NAME}:latest" && docker push "${IMAGE_NAME}:${version}"
+  on:
+    tags: true
+    branch: master
