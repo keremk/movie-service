@@ -1,5 +1,7 @@
 // GraphQL schema definition
-const typeDefs = `
+const { gql } = require('apollo-server-express')
+
+const typeDefs = gql`
   type Query { 
     allMovies(genre: String, rating: Float, offset: Int, limit: Int): MovieCollection! 
     genres: [Genre!]

@@ -1,21 +1,20 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
-const { makeExecutableSchema } = require('graphql-tools');
-const R = require('ramda');
 const utils = require('req-res-utils'); 
 const favorites = require('./src/favorites');
 const movies = require('./src/movies');
+const { ApolloServer } = require('apollo-server-express');
 
-const port = process.env.PORT || 3030
-const service_name = process.env.SERVICE_NAME || 'movie-search'
+const port = process.env.PORT || 4000;
+const service_name = process.env.SERVICE_NAME || 'movie-search';
 const failPercent = process.env.FAIL_PERCENT || 0;
 
 // Put together a schema
 const resolvers = require('./src/resolvers');
 const typeDefs = require('./src/schema');
 
-const schema = makeExecutableSchema({
+const server = new ApolloServer({
   typeDefs,
   resolvers
 });
@@ -43,15 +42,6 @@ app.use(
     }  
   }
 );
-
-// The GraphQL endpoint
-app.use(
-  '/graphql',
-  graphqlExpress({ schema })
-);
-
-// GraphiQL, a visual editor for queries
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 // Simple restful movies endpoint
 app.get('/movies', (req, res) => {
@@ -88,9 +78,11 @@ const path = require('path');
 const dir = path.join(__dirname, 'public');
 app.use(express.static(dir));
 
-// Start the server
+// Apply the express middleware
+server.applyMiddleware({app});
+
 app.listen(port, () => {
   console.log(`${service_name} listening on port ${port}!`);
-  console.log(`Go to http://localhost:${port}/graphiql to run queries!`);
+  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
   console.log(`Failure rate is set to ${failPercent}`);
 });
