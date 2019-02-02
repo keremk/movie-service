@@ -2,9 +2,31 @@
 
 This is a sample service that serves mock movie data and provides a mock store for storing favorite movie ids. This service is an edge mock service intended to be used by mobile and Web (React etc.) clients.
 
-This service provides 2 style of endpoints - REST & GraphQL
-
 ## REST Endpoint
+
+### Get Genres
+
+To access the list of all genres, you can use:
+
+``` 
+GET /genres
+```
+
+The response will be:
+
+``` javascript
+[
+    {
+        "id": 28,
+        "name": "Action"
+    },
+    {
+        "id": 12,
+        "name": "Adventure"
+    },
+    ...
+]
+```
 
 ### Get movie info
 
@@ -240,12 +262,3 @@ The response will be: (returns the full list of favorites after the add/remove o
     ]
 }
 ```
-
-## GraphQL Endpoint
-
-The GraphQL endpoint is already well documented through the use of Graphiql, to access that go to below in your favorite browser:
-
-```
-http://localhost:4000/graphql
-```
-

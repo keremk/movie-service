@@ -43,6 +43,16 @@ app.get('/movies', (req, res) => {
   }
 });
 
+app.get('/genres', (req, res) => {
+  try {
+    const genresResponse = movies.getGenres()
+    res.send(genresResponse);
+  } catch (error) {
+    console.log(error);
+    res.send({ error: error.message });
+  }
+});
+
 app.get('/favorites', (req, res) => {
   try {
     const favoritesResponse = favorites.createFavoritesResponse(req.query, req.body);
