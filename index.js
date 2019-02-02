@@ -1,23 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const utils = require('req-res-utils'); 
 const favorites = require('./src/favorites');
 const movies = require('./src/movies');
-const { ApolloServer } = require('apollo-server-express');
 
 const port = process.env.PORT || 4000;
 const service_name = process.env.SERVICE_NAME || 'movie-search';
 const failPercent = process.env.FAIL_PERCENT || 0;
-
-// Put together a schema
-const resolvers = require('./src/resolvers');
-const typeDefs = require('./src/schema');
-
-const server = new ApolloServer({
-  typeDefs,
-  resolvers
-});
 
 // Initialize the app
 const app = express();
@@ -78,11 +67,7 @@ const path = require('path');
 const dir = path.join(__dirname, 'public');
 app.use(express.static(dir));
 
-// Apply the express middleware
-server.applyMiddleware({app});
-
 app.listen(port, () => {
   console.log(`${service_name} listening on port ${port}!`);
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
   console.log(`Failure rate is set to ${failPercent}`);
 });
